@@ -41,6 +41,8 @@ danang_digital_twin/
 │   ├── 02_weather_ingestion.py          # DAG: Cào dữ liệu thời tiết
 │   ├── 03_news_ingestion.py
 │   ├── 04_trend_ingestion.py       # DAG: Cào dữ liệu tin tức & xu hướng
+│   ├── 05_news_ingestion.py
+│   ├── 04_event_ingestion.py  
 │   │
 │   └── dbt_project/                     # 🔄 Chuyển hóa dữ liệu bằng dbt
 │       ├── dbt_project.yml              # Cấu hình gốc dbt

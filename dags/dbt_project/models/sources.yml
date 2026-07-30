@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: bronze_raw
+    database: project-7cfdad94-4b3b-452c-8da
+    schema: bronze_raw
+    tables:
+      # Nguồn của Thanh
+      - name: news
+      - name: event
+      - name: google_trends
+      # Nguồn của Toàn (Phải thêm vào)
+      - name: flight 
+      - name: weather
+      - name: tourism_stats

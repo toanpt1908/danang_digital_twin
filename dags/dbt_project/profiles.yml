@@ -1,0 +1,13 @@
+danang_digital_twin:
+  outputs:
+    dev:
+      dataset: silver_clean
+      job_execution_timeout_seconds: 300
+      job_retries: 1
+      location: asia-southeast1
+      method: oauth
+      priority: interactive
+      project: project-7cfdad94-4b3b-452c-8da
+      threads: 4
+      type: bigquery
+  target: dev

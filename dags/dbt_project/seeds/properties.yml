@@ -1,0 +1,9 @@
+version: 2
+
+seeds:
+  - name: event
+    config:
+      # Ép hệ thống nạp 2 cột này dưới dạng chuỗi văn bản (string) thay vì date
+      column_types:
+        start_date: string
+        end_date: string

@@ -1,0 +1,57 @@
+# =====================================================================
+# CẤU HÌNH GỐC DỰ ÁN DBT - DIGITAL TWIN ĐÀ NẴNG
+# =====================================================================
+name: 'danang_digital_twin'
+version: '1.0.0'
+config-version: 2
+
+# Chỉ định tên profile kết nối tới BigQuery (sẽ được khớp với tệp profiles.yml)
+profile: 'danang_digital_twin'
+
+# =====================================================================
+# ĐỊNH TUYẾN THƯ MỤC (DIRECTORY PATHS)
+# =====================================================================
+# Dbt sẽ tìm kiếm các tệp mã nguồn và dữ liệu dựa trên các đường dẫn này
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+# Thư mục chứa các tệp biên dịch trung gian (đã được loại trừ trong .gitignore)
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# =====================================================================
+# CẤU HÌNH VẬT LÝ HÓA THEO TẦNG DỮ LIỆU (MATERIALIZATIONS)
+# =====================================================================
+# =====================================================================
+# CẤU HÌNH VẬT LÝ HÓA THEO TẦNG DỮ LIỆU (MATERIALIZATIONS)
+# =====================================================================
+models:
+  danang_digital_twin:
+    
+    silver:
+      +materialized: view # Ép toàn bộ các tệp trong thư mục models/silver thành View
+
+    gold:
+      +materialized: table 
+
+seeds:
+  danang_digital_twin: 
+    # ĐÃ SỬA: Xóa bỏ dòng +schema: bronze_raw. 
+    # Dbt sẽ tự động đưa các file này về silver_clean theo tệp profiles.yml
+    
+    tourism_stats:
+      +delimiter: ';' 
+
+    event: 
+      +column_types:
+        event_name: STRING
+        start_date: DATE
+        end_date: DATE
+        location: STRING
+        category: STRING

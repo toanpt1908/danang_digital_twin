@@ -1,0 +1,107 @@
+version: 2
+
+models:
+  # ==========================================
+  # 1. BẢNG CHUYẾN BAY (FLIGHT)
+  # ==========================================
+  - name: stg_flight_cleansed
+    description: "Bảng dữ liệu chuyến bay đã làm sạch tại tầng Silver."
+    columns:
+      - name: flight_date
+        description: "Ngày thực hiện chuyến bay."
+        tests:
+          - unique
+          - not_null
+      - name: total_flights
+        description: "Tổng số chuyến bay trong ngày."
+        tests:
+          - not_null
+
+  # ==========================================
+  # 2. BẢNG THỜI TIẾT (WEATHER)
+  # ==========================================
+  - name: stg_weather_cleansed
+    description: "Bảng dữ liệu thời tiết đã làm sạch tại tầng Silver."
+    columns:
+      - name: weather_date
+        description: "Ngày ghi nhận dữ liệu thời tiết."
+        tests:
+          - unique
+          - not_null
+      - name: temp_mean_celsius
+        description: "Nhiệt độ trung bình (độ C)."
+        tests:
+          - not_null
+
+  # ==========================================
+  # BẢNG THỐNG KÊ DU LỊCH (TOURISM STATS)
+  # ==========================================
+  - name: stg_tourism_stats_cleansed
+    description: "Bảng dữ liệu thống kê khách du lịch đã làm sạch."
+    columns:
+      - name: stat_id
+        description: "Khóa chính kết hợp từ năm, tháng và loại kỳ báo cáo để xác định tính duy nhất."
+        tests:
+          - unique      # Đảm bảo không có 2 kỳ báo cáo nào bị trùng lặp
+          - not_null    # Đảm bảo mã ID luôn tồn tại
+          
+      - name: accommodation_guests
+        description: "Tổng số khách lưu trú trong kỳ."
+        tests:
+          - not_null    # Đảm bảo cột tổng khách không bao giờ bị rỗng
+
+  # ==========================================
+  # 4. BẢNG TIN TỨC (NEWS)
+  # ==========================================
+  - name: stg_news_cleansed
+    description: "Bảng dữ liệu tin tức du lịch Đà Nẵng đã làm sạch."
+    columns:
+      - name: url
+        description: "Đường dẫn gốc của bài báo. Đóng vai trò là khóa chính."
+        tests:
+          - unique      # Đảm bảo không có bài báo nào bị lưu trùng link
+          - not_null
+      - name: publish_date
+        description: "Ngày xuất bản bài báo."
+        tests:
+          - not_null
+      - name: title
+        description: "Tiêu đề bài báo."
+        tests:
+          - not_null
+
+  # ==========================================
+  # 5. BẢNG XU HƯỚNG TÌM KIẾM (GOOGLE TRENDS)
+  # ==========================================
+  - name: stg_trend_cleansed
+    description: "Bảng chỉ số xu hướng tìm kiếm từ khóa du lịch Đà Nẵng."
+    columns:
+      - name: trend_id
+        description: "Khóa chính ghép từ search_date và keyword (Tạo trong SQL)."
+        tests:
+          - unique      # Đảm bảo 1 từ khóa trong 1 ngày chỉ có 1 dòng chỉ số
+          - not_null
+      - name: search_interest
+        description: "Điểm số quan tâm (0-100)."
+        tests:
+          - not_null
+
+  # ==========================================
+  # 6. BẢNG SỰ KIỆN (EVENTS)
+  # ==========================================
+  - name: stg_events_cleansed
+    description: "Bảng lịch trình sự kiện, lễ hội tại Đà Nẵng."
+    columns:
+      - name: event_id
+        description: "Khóa chính của sự kiện (Mã sự kiện hoặc Khóa ghép sinh ra từ SQL)."
+        tests:
+          - unique
+          - not_null
+      - name: event_name
+        description: "Tên sự kiện hoặc lễ hội."
+        tests:
+          - not_null
+      - name: start_date
+        description: "Ngày bắt đầu sự kiện."
+        tests:
+          - not_null

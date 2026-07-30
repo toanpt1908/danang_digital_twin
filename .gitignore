@@ -1,0 +1,6 @@
+# Bỏ qua tất cả các file JSON để bảo vệ Service Account Key GCP
+*.json
+
+# (Tùy chọn) Bỏ qua các file rác của hệ điều hành
+.DS_Store
+Thumbs.db
